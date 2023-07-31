@@ -15,18 +15,34 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dep.failsafe.version>3.3.2</dep.failsafe.version>
+        <dep.guava.version>31.1-jre</dep.guava.version>
+        <dep.jackson.version>2.14.1</dep.jackson.version>
+        <dep.junit.version>5.9.1</dep.junit.version>
+        <dep.protobuf.version>3.23.2</dep.protobuf.version>
+        <dep.protoc.version>3.21.7</dep.protoc.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${dep.protobuf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>${dep.protobuf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
+            <version>${dep.guava.version}</version>
         </dependency>
         <dependency>
             <groupId>dev.failsafe</groupId>
             <artifactId>failsafe</artifactId>
-            <version>3.3.2</version>
+            <version>${dep.failsafe.version}</version>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
@@ -51,14 +67,19 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>com.github.ekryd.sortpom</groupId>
-                <artifactId>sortpom-maven-plugin</artifactId>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${dep.protoc.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <protoSourceRoot>prefab-cloud</protoSourceRoot>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>verify</goal>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
                         </goals>
-                        <phase>validate</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -105,5 +126,13 @@
             </plugin>
 
         </plugins>
+
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.7.0</version>
+            </extension>
+        </extensions>
     </build>
 </project>
