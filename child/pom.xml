@@ -77,7 +77,6 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.google.guava:guava</include>
-                                    <include>cloud.prefab:sse-handler</include>
                                     <include>dev.failsafe:failsafe</include>
                                     <include>org.yaml:snakeyaml</include>
                                 </includes>
